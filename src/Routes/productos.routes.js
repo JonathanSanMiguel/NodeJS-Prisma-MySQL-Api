@@ -1,26 +1,16 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import {
+    getAllProducts,
+    postNewProduct
+} from '../Controllers/productos.controller.js';
 
 
 const router = Router()
-const prisma = new PrismaClient()
 
 
-router.get('/products', async(request, response) => {
-    try {
+router.get('/products', getAllProducts)
 
-        const allRegisters = await prisma.productos.findMany()
-
-        response.status(200).json(
-            allRegisters
-        )
-
-    } catch (error) {
-        response.status(500).json(
-            'Server error'
-        )
-    }
-})
+router.post('/addProduct', postNewProduct)
 
 
 export default router

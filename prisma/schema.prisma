@@ -21,7 +21,7 @@ model productos {
   CreatedAt DateTime @default(now())
   UpdatedAt DateTime @default(now())
   Nombre String
-  Descricpion String
+  Descripcion String
   Peso Int
   MarcaId Int
   marca marcas @relation(fields: [MarcaId], references: [Id])
