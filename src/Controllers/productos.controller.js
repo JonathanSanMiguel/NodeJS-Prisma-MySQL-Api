@@ -9,10 +9,10 @@ export const getAllProducts = async(request, response) => {
         response.status(200).json(
             allRegisters
         )
-
     } catch (error) {
-        response.status(500).json(
-            'Server error'
+        // console.log(error)
+        response.status(500).send(
+            'Something Goes Wrong...'
         )
     }
 }
@@ -20,23 +20,32 @@ export const getAllProducts = async(request, response) => {
 
 export const postNewProduct = async(request, response) => {
     try {
+        // Las constantes deben llamarse igual que el campo
+        // de la base de datos.
         const {
-            nombre,
-            descripcion,
-            peso,
-            marca,
-            estado,
-            cantidad
+            Nombre,
+            Descripcion,
+            Peso,
+            MarcaId,
+            Estado,
+            Cantidad
         } = request.body
 
-        const newProduct = await prisma.productos.create({
-            data: request.body
+        // const newProduct = await prisma.productos.create({data: request.body})
+        await prisma.productos.create({
+            data: {
+                Nombre,
+                Descripcion,
+                Peso,
+                MarcaId,
+                Estado,
+                Cantidad
+            }
         })
 
-        response.status(200).json({
-            newProduct
-        })
-
+        response.status(200).send(
+            'Registro Creado Satisfactoriamente'
+        )
     } catch (error) {
         response.status(500).json(
             error
