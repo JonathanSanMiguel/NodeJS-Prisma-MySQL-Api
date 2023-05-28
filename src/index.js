@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.use('/inshka', productosRoutes)
+app.use('/prisma', productosRoutes)
 app.use('/inshka', marcasRoutes)
 
 

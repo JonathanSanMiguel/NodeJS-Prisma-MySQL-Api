@@ -2,7 +2,8 @@ import { Router } from 'express';
 import {
   getAllProducts,
   getOneProduct,
-  postNewProduct
+  postNewProduct,
+  deleteProduct
 } from '../Controllers/productos.controller.js';
 
 
@@ -14,5 +15,6 @@ router.get('/oneProduct/:id', getOneProduct)
 
 router.post('/addProduct', postNewProduct)
 
+router.delete('/deleteOne/:id', deleteProduct)
 
 export default router

@@ -4,7 +4,11 @@ import { prisma } from '../PrismaConnection.js';
 export const getAllProducts = async(request, response) => {
   try {
 
-    const allRegisters = await prisma.productos.findMany()
+    const allRegisters = await prisma.productos.findMany({
+      include: {
+        marca: true
+      }
+    })
 
     response.status(200).json(
       allRegisters
@@ -25,6 +29,9 @@ export const getOneProduct = async(request, response) => {
     const productFound = await prisma.productos.findFirst({
       where: {
         Id: parseInt(request.params.id)
+      },
+      include: {
+        marca: true
       }
     })
 
@@ -73,6 +80,29 @@ export const postNewProduct = async(request, response) => {
   } catch (error) {
     response.status(500).json(
       error
+    )
+  }
+}
+
+
+export const deleteProduct = async(request, response) => {
+  try {
+
+    const productFound = await prisma.productos.delete({
+      where: {
+        Id: parseInt(request.params.id)
+      }
+    })
+
+    if(!productFound) return response.status(404).send('Product Not Found')
+
+    response.status(200).send(
+      'Registro Eliminado Satisfactoriamente'
+    )
+    
+  } catch (error) {
+    response.status(500).send(
+      'Something Goes Wrong'
     )
   }
 }
