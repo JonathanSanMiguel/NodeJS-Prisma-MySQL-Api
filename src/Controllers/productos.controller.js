@@ -51,26 +51,24 @@ export const getOneProduct = async(request, response) => {
 
 export const postNewProduct = async(request, response) => {
   try {
-    // Las constantes deben llamarse igual que el campo
-    // de la base de datos.
     const {
-      Nombre,
-      Descripcion,
-      Peso,
-      MarcaId,
-      Estado,
-      Cantidad
+      nombre,
+      descripcion,
+      peso,
+      marcaId,
+      estado,
+      cantidad
     } = request.body
 
     //const newProduct = await prisma.productos.create({data: request.body})
     await prisma.productos.create({
       data: {
-        Nombre,
-        Descripcion,
-        Peso,
-        MarcaId,
-        Estado,
-        Cantidad
+        Nombre: nombre,
+        Descripcion: descripcion,
+        Peso: peso,
+        MarcaId: marcaId,
+        Estado: estado,
+        Cantidad: cantidad
       }
     })
 
@@ -80,6 +78,44 @@ export const postNewProduct = async(request, response) => {
   } catch (error) {
     response.status(500).json(
       error
+    )
+  }
+}
+
+
+export const updateAProduct = async(request, response) => {
+  try {
+    const {
+      nombre,
+      descripcion,
+      peso,
+      marcaId,
+      estado,
+      cantidad
+    } = request.body
+
+
+    await prisma.productos.update({
+      where: {
+        Id: parseInt(request.params.id)
+      },
+      data: {
+        Nombre: nombre,
+        Descripcion: descripcion,
+        Peso: peso,
+        MarcaId: marcaId,
+        Estado: estado,
+        Cantidad: cantidad
+      }
+    })
+
+    response.status(200).send(
+      'Registro Actualizado Satisfactoriamente'
+    )
+    
+  } catch (error) {
+    response.status(500).send(
+      'Something Goes Wrong...'
     )
   }
 }
@@ -99,7 +135,7 @@ export const deleteProduct = async(request, response) => {
     response.status(200).send(
       'Registro Eliminado Satisfactoriamente'
     )
-    
+
   } catch (error) {
     response.status(500).send(
       'Something Goes Wrong'
