@@ -3,7 +3,6 @@ import { prisma } from '../PrismaConnection.js';
 
 export const getAllProducts = async(request, response) => {
   try {
-
     const allRegisters = await prisma.productos.findMany({
       include: {
         marca: true
@@ -25,7 +24,6 @@ export const getAllProducts = async(request, response) => {
 
 export const getOneProduct = async(request, response) => {
   try {
-
     const productFound = await prisma.productos.findFirst({
       where: {
         Id: parseInt(request.params.id)
@@ -123,7 +121,6 @@ export const updateAProduct = async(request, response) => {
 
 export const deleteProduct = async(request, response) => {
   try {
-
     const productFound = await prisma.productos.delete({
       where: {
         Id: parseInt(request.params.id)
