@@ -110,7 +110,7 @@ export const updateAProduct = async(request, response) => {
     response.status(200).send(
       'Registro Actualizado Satisfactoriamente'
     )
-    
+
   } catch (error) {
     response.status(500).send(
       'Something Goes Wrong...'
